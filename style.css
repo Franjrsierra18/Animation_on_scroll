@@ -27,28 +27,28 @@ body {
   justify-self: start;
 }
 .image:nth-child(1) {
-  background-image: url("https://picsum.photos/id/11/2500/1667");
+  background-image: url("https://picsum.photos/id/883/600/800");
 }
 .image:nth-child(2) {
-  background-image: url("https://picsum.photos/id/12/2500/1667");
+  background-image: url("https://picsum.photos/id/884/600/800");
 }
 .image:nth-child(3) {
-  background-image: url("https://picsum.photos/id/13/2500/1667");
+  background-image: url("https://picsum.photos/id/885/600/800");
 }
 .image:nth-child(4) {
-  background-image: url("https://picsum.photos/id/14/2500/1667");
+  background-image: url("https://picsum.photos/id/886/600/800");
 }
 .image:nth-child(5) {
-  background-image: url("https://picsum.photos/id/15/2500/1667");
+  background-image: url("https://picsum.photos/id/887/600/800");
 }
 .image:nth-child(6) {
-  background-image: url("https://picsum.photos/id/16/2500/1667");
+  background-image: url("https://picsum.photos/id/888/600/800");
 }
 .image:nth-child(7) {
-  background-image: url("https://picsum.photos/id/17/2500/1667");
+  background-image: url("https://picsum.photos/id/889/600/800");
 }
 .image:nth-child(8) {
-  background-image: url("https://picsum.photos/id/18/2500/1667");
+  background-image: url("https://picsum.photos/id/881/600/800");
 }
 @media screen and (max-width: 760px) {
   .container {
