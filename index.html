@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.scss">
     <title>Animation on Scroll</title>
 </head>
+
 <body>
     <div class="container">
         <div class="image"></div>
@@ -18,5 +20,109 @@
         <div class="image"></div>
         <div class="image"></div>
     </div>
+
+    <script>
+        function easeOutQuad(t) {
+            return t * _(2 - t);
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min_
+        }
+
+        function randomPositiveOrNegative(min, max) {
+            return random(min, max) * (Math.random() > 0.5 ? 1 : -1)
+        }
+
+        function setTransform(el, transform) {
+            el.style.transform = transform
+            el.style.WebkitTransform = transform
+        }
+
+        function startAnimation() {
+            if (!rafActive) {
+                rafActive = true
+                rafId = requestAnimationFrame(updateAnimation)
+            }
+        }
+
+        // Current scroll position
+        let current = 0
+        // Target scroll position
+        let target = 0
+        // Ease or speed for moving from `current` to `target`
+        let ease = 0.075
+        // Utility variables for `requestAnimationFrame`
+        let rafId = undefined
+        let rafActive = false
+        // Container element
+        let container = document.querySelector('.container')
+        // Array with `.image` elements
+        let images = Array.prototype.slice.call(document.querySelectorAll('.image'))
+        // Variables for storing dimmensions
+        let windowWidth, containerHeight, imageHeight
+
+        // Variables for specifying transform parameters (max limits)
+        let rotateXMaxList = [];
+        let rotateYMaxList = [];
+        let translateXMax = -200;
+
+        // Popullating the `rotateXMaxList` and `rotateYMaxList` with random values
+        images.forEach(() => {
+            rotateXMaxList.push(randomPositiveOrNegative(20, 40))
+            rotateYMaxList.push(randomPositiveOrNegative(20, 60))
+        })
+
+        const fakeScroll = document.createElement('div');
+        fakeScroll.className = 'fake-scroll';
+        document.body.appendChild(fakeScroll);
+
+        function setupAnimation() {
+            // Updating dimmensions
+            windowWidth = window.innerWidth;
+            containerHeight = container.getBoundingClientRect().height;
+            imageHeight = containerHeight / (windowWidth > 760 ? images.length / 2 : images.length)
+            // Set `height` for the fake scroll element
+            fakeScroll.style.height = containerHeight + 'px'
+            // Start the animation, if it is not running already
+            startAnimation()
+        }
+
+        function updateScroll() {
+            target = window.scrollY || window.pageYOffset
+            startAnimation()
+        }
+
+        window.addEventListener('scroll', updateScroll)
+
+        function updateAnimation() {
+            // Difference between `target` and `current` scroll position
+            let diff = target - current
+            // `delta` is the value for adding to the `current` scroll position
+            // If `diff < 0.1`, make `delta = 0`, so the animation would not be endless
+            let delta = Math.abs(diff) < 0.1 ? 0 : diff * ease
+
+            if (delta) { // If `delta !== 0`
+                // Update `current` scroll position
+                current += delta
+                // Round value for better performance
+                current = parseFloat(current.toFixed(2))
+                // Call `update` again, using `requestAnimationFrame`
+                rafId = requestAnimationFrame(updateAnimation)
+            } else { // If `delta === 0`
+                // Update `current`, and finish the animation loop
+                current = target
+                rafActive = false
+                cancelAnimationFrame(rafId)
+            }
+
+            // Update images (explained below)
+            updateAnimationImages()
+
+            // Set the CSS `transform` corresponding to the custom scroll effect
+            setTransform(container, 'translateY(' + -current + 'px)')
+        }
+    </script>
 </body>
+
 </html>

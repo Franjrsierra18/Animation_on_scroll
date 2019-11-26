@@ -41,6 +41,12 @@
     .image:nth-child(2n) {
       justify-self: center;
     }
-  }
+}
+
+.fake-scroll {
+    position: absolute;
+    top: 0;
+    width: 1px;
+}
 
 
